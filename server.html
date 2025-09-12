@@ -3,9 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V.E.I.L ?????</title>
+    <title>⚠️ SISTEMA COMPROMETIDO ⚠️</title>
+</head>
+  <style>
+    body {
+      background-color: black;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      padding: 2em;
+      transition: background 1s ease;
+    }
+
+    #terminal {
+      white-space: pre-wrap;
+      min-height: 300px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #0f0;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    #resposta-container {
+      margin-top: 20px;
+      display: none;
+    }
+
+    input[type="text"] {
+      background-color: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.5em;
+      width: 300px;
+      font-family: monospace;
+    }
+
+    button {
+      background-color: #0f0;
+      color: black;
+      border: none;
+      padding: 0.5em 1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    button:hover {
+      background-color: #0c0;
+    }
+
+    #continuar {
+      display: none;
+      margin-top: 20px;
+      background-color: transparent;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 0.5em 1em;
+      font-family: monospace;
+      cursor: pointer;
+    }
+
+    #continuar:hover {
+      background-color: #0f0;
+      color: black;
+    }
+  </style>
 </head>
 <body>
-    asdasdasd
+  <div id="terminal"></div>
+  <button id="continuar" onclick="iniciarEnigmas()">▶ Continuar</button>
+
+  <div id="resposta-container">
+    <label for="resposta">Digite sua resposta:</label>
+    <input type="text" id="resposta" placeholder="Resposta do agente">
+    <button onclick="verificarResposta()">Enviar</button>
+  </div>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+    const continuarBtn = document.getElementById("continuar");
+    const respostaContainer = document.getElementById("resposta-container");
+
+    const introducao = [
+      "root@veil:~$ inicializando sistema...",
+      ">> Erro: falha na autenticação",
+      ">> Erro: acesso não autorizado detectado",
+      ">> ALERTA: firewall comprometido",
+      ">> ALERTA: núcleo de dados exposto",
+      ">> Invasão em andamento...",
+      ">> Código R@@tkit71 injetado...",
+      "",
+      "LINX: Saudações, ^^.",
+      "LINX: Este sistema agora está sob meu controle.",
+      "LINX: E ele está cheio de coisas ruins :(",
+      "LINX: Queria saber porque está querendo tomar controle disso aqui, isso e apenas um emaranhado de duvidas.",
+      ""
+    ];
+
+    const enigmas = [
+      {
+        fala: "LINX: Antes de tomar o controle, você vai precisar resolver umas coisas que eu resolvi antes. Esse é sobre o imperador... aquele lá, César. Ele criou uma cifra.  Não qualquer cifra.  Uma especial.  Como um 5 à direita, mfqqtbjjp",
+        respostaCorreta: "halloween"
+      },
+      {
+        fala: "LINX: Olha você e bom ^^, o proximo e a mesma coisa porem César disse que dessa vez o deslocamento da metade era +2 e a outra -4, da para entender???? engxgnjaoo",
+        respostaCorreta: "cleverness"
+      },
+      {
+        fala: "LINX: Enigma 3 — Qual é o nome do agente fundador?",
+        respostaCorreta: "Takukunavara"
+      },
+      {
+        fala: "LINX: Enigma 4 — Qual é o número do servidor oculto?",
+        respostaCorreta: "404-Zeta"
+      },
+      {
+        fala: "LINX: Enigma 5 — Qual é a chave de encerramento?",
+        respostaCorreta: "Omega-End"
+      }
+    ];
+
+    let etapa = 0;
+
+    function digitarTexto(textoArray, callback) {
+      let linha = 0;
+      let caractere = 0;
+      terminal.innerHTML = "";
+
+      function digitarLinha() {
+        if (linha < textoArray.length) {
+          const texto = textoArray[linha];
+          if (caractere < texto.length) {
+            terminal.innerHTML += texto.charAt(caractere);
+            caractere++;
+            setTimeout(digitarLinha, 40);
+          } else {
+            terminal.innerHTML += "\n";
+            linha++;
+            caractere = 0;
+            setTimeout(digitarLinha, 300);
+          }
+        } else {
+          adicionarCursor();
+          callback();
+        }
+      }
+
+      digitarLinha();
+    }
+
+    function adicionarCursor() {
+      const cursor = document.createElement("span");
+      cursor.classList.add("cursor");
+      terminal.appendChild(cursor);
+    }
+
+    function iniciarEnigmas() {
+      continuarBtn.style.display = "none";
+      terminal.innerHTML = "";
+      etapa = 0;
+      apresentarEnigma();
+    }
+
+    function apresentarEnigma() {
+      if (etapa < enigmas.length) {
+        terminal.innerHTML = "";
+        digitarTexto([enigmas[etapa].fala], () => {
+          respostaContainer.style.display = "block";
+        });
+      } else {
+        terminal.innerHTML = "";
+        digitarTexto(["✅ Sistema restaurado. Linx foi neutralizado."], () => {
+          respostaContainer.style.display = "none";
+          document.body.style.background = "linear-gradient(to right, #000, #111)";
+          document.title = "V.E.I.L server data";
+          adicionarCursor();
+        });
+      }
+    }
+
+    function verificarResposta() {
+      const resposta = document.getElementById("resposta").value.trim();
+      if (resposta === enigmas[etapa].respostaCorreta) {
+        etapa++;
+        respostaContainer.style.display = "none";
+        document.getElementById("resposta").value = "";
+        apresentarEnigma();
+      } else {
+        terminal.innerHTML = "";
+        digitarTexto(["❌ Resposta incorreta. Linx continua no controle..."], () => {
+          respostaContainer.style.display = "none";
+          setTimeout(apresentarEnigma, 2000);
+        });
+      }
+    }
+
+    digitarTexto(introducao, () => {
+      continuarBtn.style.display = "inline-block";
+    });
+  </script>
 </body>
 </html>

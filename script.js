@@ -8,8 +8,8 @@ const agentes = {
 function validarLogin(event) {
   event.preventDefault();
 
-  const usuario = document.getElementById("#usuario").value;
-  const senha = document.getElementById("#senha").value;
+  const usuario = document.getElementById("usuario").value;
+  const senha = document.getElementById("senha").value;
 
   if (agentes[usuario] && agentes[usuario] === senha) {
     alert("Acesso concedido ao agente: " + usuario);
