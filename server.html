@@ -76,9 +76,14 @@
       background-color: #0f0;
       color: black;
     }
+    #painel-final {
+      background-image: url(./images/V.E.I.L\ wall.png);
+      
+    }
   </style>
 </head>
 <body>
+
   <div id="terminal"></div>
   <button id="continuar" onclick="iniciarEnigmas()">▶ Continuar</button>
 
@@ -87,6 +92,15 @@
     <input type="text" id="resposta" placeholder="Resposta do agente">
     <button onclick="verificarResposta()">Enviar</button>
   </div>
+
+  <div id="painel-final" style="display: none;">
+    <h1 style="color: rgb(46, 54, 46);">🟢 Acesso concedido: V.E.I.L Server</h1>
+    <p>Sistema restaurado com sucesso. Escolha uma ação:</p>
+    <button onclick="abrirLogs()">📁 Ver logs</button>
+    <button onclick="abrirIA()">🧠 Consultar IA</button>
+    <button onclick="abrirSeguranca()">🔐 Segurança</button>
+  </div>
+
 
   <script>
     const terminal = document.getElementById("terminal");
@@ -111,24 +125,24 @@
 
     const enigmas = [
       {
-        fala: "LINX: Antes de tomar o controle, você vai precisar resolver umas coisas que eu resolvi antes. Esse é sobre o imperador... aquele lá, César. Ele criou uma cifra.  Não qualquer cifra.  Uma especial.  Como um 5 à direita, mfqqtbjjp",
-        respostaCorreta: "halloween"
+        fala: "LINX: Antes de tomar o controle, você vai precisar resolver umas coisas que eu resolvi antes. Esse é sobre o imperador... aquele lá, César. Ele criou uma cifra.  Não qualquer cifra.  Uma especial.  Como um -5 à esquerda, wmdvinf",
+        respostaCorreta: "briansk"
       },
       {
-        fala: "LINX: Olha você e bom ^^, o proximo e a mesma coisa porem César disse que dessa vez o deslocamento da metade era +2 e a outra -4, da para entender???? engxgnjaoo",
-        respostaCorreta: "cleverness"
+        fala: "LINX: Olha você e bom ^^, o proximo e a mesma coisa porem César disse que dessa vez o deslocamento da metade era +2 e a outra -4, da para entender???? ejgtjapo",
+        respostaCorreta: "chernets"
       },
       {
-        fala: "LINX: Enigma 3 — Qual é o nome do agente fundador?",
-        respostaCorreta: "Takukunavara"
+        fala: "LINX: Otimo.. Você sabia que a V.E.I.L tem uma IA que rouba dados de diversas pessoas? O_o. César disse que esse tem a mesma dinamica o primeiro deslocamento +3 e a outra +7. vxsrulcv",
+        respostaCorreta: "suponevo"
       },
       {
-        fala: "LINX: Enigma 4 — Qual é o número do servidor oculto?",
-        respostaCorreta: "404-Zeta"
+        fala: "LINX: MEEHHHH XD, EU preciso dizer você esta engajado nisso... dessa vez César disse que iria aplicar o deslocamento de 15%, 15% na ferramenta que você esta usando desde o inicio +ABC... wridloe",
+        respostaCorreta: "snezhka"
       },
       {
-        fala: "LINX: Enigma 5 — Qual é a chave de encerramento?",
-        respostaCorreta: "Omega-End"
+        fala: "LINX: Esse vai ser o ultimo, e pegue essas letras surpresas você vai usar mais tarde x-x-x-x. o que César disse e que acabou e que isso não tem mais sua logica, 7-15-18-15-4-9-19-8-3-8-5",
+        respostaCorreta: "gorodishche"
       }
     ];
 
@@ -186,6 +200,11 @@
           respostaContainer.style.display = "none";
           document.body.style.background = "linear-gradient(to right, #000, #111)";
           document.title = "V.E.I.L server data";
+          const painelFinal = document.getElementById("painel-final");
+      if (painelFinal) {
+        painelFinal.style.display = "block";
+      }
+
           adicionarCursor();
         });
       }
@@ -200,16 +219,28 @@
         apresentarEnigma();
       } else {
         terminal.innerHTML = "";
-        digitarTexto(["❌ Resposta incorreta. Linx continua no controle..."], () => {
+        digitarTexto(["Resposta incorreta. Linx continua no controle...Não seja todo Agente"], () => {
           respostaContainer.style.display = "none";
           setTimeout(apresentarEnigma, 2000);
         });
       }
     }
+function abrirLogs() {
+    terminal.innerHTML = "📁 Tentando acessar logs do sistema...\n⛔ Acesso negado pelo administrador.";
+  }
+
+  function abrirIA() {
+    terminal.innerHTML = "🧠 Consultando IA V.E.I.L...\n⛔ Acesso negado pelo administrador.";
+  }
+
+  function abrirSeguranca() {
+    terminal.innerHTML = "🔐 Verificando protocolos de segurança...\n⛔ Acesso negado pelo administrador.";
+  }
 
     digitarTexto(introducao, () => {
       continuarBtn.style.display = "inline-block";
     });
+
   </script>
 </body>
 </html>
