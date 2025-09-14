@@ -78,7 +78,9 @@
     }
     #painel-final {
       background-image: url(./images/V.E.I.L\ wall.png);
-      
+      background-size: cover;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
@@ -94,7 +96,7 @@
   </div>
 
   <div id="painel-final" style="display: none;">
-    <h1 style="color: rgb(46, 54, 46);">🟢 Acesso concedido: V.E.I.L Server</h1>
+    <h1 style="color: rgb(46, 54, 46);">Acesso concedido: V.E.I.L Server</h1>
     <p>Sistema restaurado com sucesso. Escolha uma ação:</p>
     <button onclick="abrirLogs()">📁 Ver logs</button>
     <button onclick="abrirIA()">🧠 Consultar IA</button>
@@ -103,144 +105,7 @@
 
 
   <script>
-    const terminal = document.getElementById("terminal");
-    const continuarBtn = document.getElementById("continuar");
-    const respostaContainer = document.getElementById("resposta-container");
-
-    const introducao = [
-      "root@veil:~$ inicializando sistema...",
-      ">> Erro: falha na autenticação",
-      ">> Erro: acesso não autorizado detectado",
-      ">> ALERTA: firewall comprometido",
-      ">> ALERTA: núcleo de dados exposto",
-      ">> Invasão em andamento...",
-      ">> Código R@@tkit71 injetado...",
-      "",
-      "LINX: Saudações, ^^.",
-      "LINX: Este sistema agora está sob meu controle.",
-      "LINX: E ele está cheio de coisas ruins :(",
-      "LINX: Queria saber porque está querendo tomar controle disso aqui, isso e apenas um emaranhado de duvidas.",
-      ""
-    ];
-
-    const enigmas = [
-      {
-        fala: "LINX: Antes de tomar o controle, você vai precisar resolver umas coisas que eu resolvi antes. Esse é sobre o imperador... aquele lá, César. Ele criou uma cifra.  Não qualquer cifra.  Uma especial.  Como um -5 à esquerda, wmdvinf",
-        respostaCorreta: "briansk"
-      },
-      {
-        fala: "LINX: Olha você e bom ^^, o proximo e a mesma coisa porem César disse que dessa vez o deslocamento da metade era +2 e a outra -4, da para entender???? ejgtjapo",
-        respostaCorreta: "chernets"
-      },
-      {
-        fala: "LINX: Otimo.. Você sabia que a V.E.I.L tem uma IA que rouba dados de diversas pessoas? O_o. César disse que esse tem a mesma dinamica o primeiro deslocamento +3 e a outra +7. vxsrulcv",
-        respostaCorreta: "suponevo"
-      },
-      {
-        fala: "LINX: MEEHHHH XD, EU preciso dizer você esta engajado nisso... dessa vez César disse que iria aplicar o deslocamento de 15%, 15% na ferramenta que você esta usando desde o inicio +ABC... wridloe",
-        respostaCorreta: "snezhka"
-      },
-      {
-        fala: "LINX: Esse vai ser o ultimo, e pegue essas letras surpresas você vai usar mais tarde x-x-x-x. o que César disse e que acabou e que isso não tem mais sua logica, 7-15-18-15-4-9-19-8-3-8-5",
-        respostaCorreta: "gorodishche"
-      }
-    ];
-
-    let etapa = 0;
-
-    function digitarTexto(textoArray, callback) {
-      let linha = 0;
-      let caractere = 0;
-      terminal.innerHTML = "";
-
-      function digitarLinha() {
-        if (linha < textoArray.length) {
-          const texto = textoArray[linha];
-          if (caractere < texto.length) {
-            terminal.innerHTML += texto.charAt(caractere);
-            caractere++;
-            setTimeout(digitarLinha, 40);
-          } else {
-            terminal.innerHTML += "\n";
-            linha++;
-            caractere = 0;
-            setTimeout(digitarLinha, 300);
-          }
-        } else {
-          adicionarCursor();
-          callback();
-        }
-      }
-
-      digitarLinha();
-    }
-
-    function adicionarCursor() {
-      const cursor = document.createElement("span");
-      cursor.classList.add("cursor");
-      terminal.appendChild(cursor);
-    }
-
-    function iniciarEnigmas() {
-      continuarBtn.style.display = "none";
-      terminal.innerHTML = "";
-      etapa = 0;
-      apresentarEnigma();
-    }
-
-    function apresentarEnigma() {
-      if (etapa < enigmas.length) {
-        terminal.innerHTML = "";
-        digitarTexto([enigmas[etapa].fala], () => {
-          respostaContainer.style.display = "block";
-        });
-      } else {
-        terminal.innerHTML = "";
-        digitarTexto(["✅ Sistema restaurado. Linx foi neutralizado."], () => {
-          respostaContainer.style.display = "none";
-          document.body.style.background = "linear-gradient(to right, #000, #111)";
-          document.title = "V.E.I.L server data";
-          const painelFinal = document.getElementById("painel-final");
-      if (painelFinal) {
-        painelFinal.style.display = "block";
-      }
-
-          adicionarCursor();
-        });
-      }
-    }
-
-    function verificarResposta() {
-      const resposta = document.getElementById("resposta").value.trim();
-      if (resposta === enigmas[etapa].respostaCorreta) {
-        etapa++;
-        respostaContainer.style.display = "none";
-        document.getElementById("resposta").value = "";
-        apresentarEnigma();
-      } else {
-        terminal.innerHTML = "";
-        digitarTexto(["Resposta incorreta. Linx continua no controle...Não seja todo Agente"], () => {
-          respostaContainer.style.display = "none";
-          setTimeout(apresentarEnigma, 2000);
-        });
-      }
-    }
-function abrirLogs() {
-    terminal.innerHTML = "📁 Tentando acessar logs do sistema...\n⛔ Acesso negado pelo administrador.";
-  }
-
-  function abrirIA() {
-    terminal.innerHTML = "🧠 Consultando IA V.E.I.L...\n⛔ Acesso negado pelo administrador.";
-  }
-
-  function abrirSeguranca() {
-    terminal.innerHTML = "🔐 Verificando protocolos de segurança...\n⛔ Acesso negado pelo administrador.";
-  }
-
-    digitarTexto(introducao, () => {
-      continuarBtn.style.display = "inline-block";
-    });
-
+   const _0x55a03f=_0x3e14;function _0x1b1f(){const _0x1f24e9=['background','400KRulGm','🔐\x20Verificando\x20protocolos\x20de\x20segurança...\x0a⛔\x20Acesso\x20negado\x20pelo\x20administrador.','inline-block','briansk','LINX:\x20Queria\x20saber\x20porque\x20está\x20querendo\x20tomar\x20controle\x20disso\x20aqui,\x20isso\x20e\x20apenas\x20um\x20emaranhado\x20de\x20duvidas.','1946790pWsWgE','Resposta\x20incorreta.\x20Linx\x20continua\x20no\x20controle...Não\x20seja\x20todo\x20Agente','LINX:\x20Antes\x20de\x20tomar\x20o\x20controle,\x20você\x20vai\x20precisar\x20resolver\x20umas\x20coisas\x20que\x20eu\x20resolvi\x20antes.\x20Esse\x20é\x20sobre\x20o\x20imperador...\x20aquele\x20lá,\x20César.\x20Ele\x20criou\x20uma\x20cifra.\x20\x20Não\x20qualquer\x20cifra.\x20\x20Uma\x20especial.\x20\x20Como\x20um\x20-5\x20à\x20esquerda,\x20wmdvinf','LINX:\x20Otimo..\x20Você\x20sabia\x20que\x20a\x20V.E.I.L\x20tem\x20uma\x20IA\x20que\x20rouba\x20dados\x20de\x20diversas\x20pessoas?\x20O_o.\x20César\x20disse\x20que\x20esse\x20tem\x20a\x20mesma\x20dinamica\x20o\x20primeiro\x20deslocamento\x20+3\x20e\x20a\x20outra\x20+7.\x20vxsrulcv','LINX:\x20MEEHHHH\x20XD,\x20EU\x20preciso\x20dizer\x20você\x20esta\x20engajado\x20nisso...\x20dessa\x20vez\x20César\x20disse\x20que\x20iria\x20aplicar\x20o\x20deslocamento\x20de\x2015%,\x2015%\x20na\x20ferramenta\x20que\x20você\x20esta\x20usando\x20desde\x20o\x20inicio\x20+ABC...\x20wridloe','V.E.I.L\x20server\x20data','7318384uyXCWZ','3220128FQWSfb','trim','value','626924PhkMlJ','add','🧠\x20Consultando\x20IA\x20V.E.I.L...\x0a⛔\x20Acesso\x20negado\x20pelo\x20administrador.','360081qNQmof','block','innerHTML','getElementById','continuar','chernets','14jBRHNE','LINX:\x20E\x20ele\x20está\x20cheio\x20de\x20coisas\x20ruins\x20:(','classList','snezhka','none','style','LINX:\x20Olha\x20você\x20e\x20bom\x20^^,\x20o\x20proximo\x20e\x20a\x20mesma\x20coisa\x20porem\x20César\x20disse\x20que\x20dessa\x20vez\x20o\x20deslocamento\x20da\x20metade\x20era\x20+2\x20e\x20a\x20outra\x20-4,\x20da\x20para\x20entender????\x20ejgtjapo','span','>>\x20Código\x20R@@tkit71\x20injetado...','✅\x20Sistema\x20restaurado.\x20Linx\x20foi\x20neutralizado.','painel-final','LINX:\x20Este\x20sistema\x20agora\x20está\x20sob\x20meu\x20controle.','terminal','86WzOAdM','LINX:\x20Saudações,\x20^^.','appendChild','respostaCorreta','suponevo','>>\x20Erro:\x20acesso\x20não\x20autorizado\x20detectado','>>\x20Invasão\x20em\x20andamento...','length','LINX:\x20Esse\x20vai\x20ser\x20o\x20ultimo,\x20e\x20pegue\x20isso\x20você\x20vai\x20usar\x20mais\x20tarde\x20i-K-7-b.\x20o\x20que\x20César\x20disse\x20e\x20que\x20acabou\x20e\x20que\x20isso\x20não\x20tem\x20mais\x20sua\x20logica,\x207-15-18-15-4-9-19-8-3-8-5','4628685PkSEUO','>>\x20ALERTA:\x20firewall\x20comprometido','display','resposta','body','resposta-container','17353CKYwdB'];_0x1b1f=function(){return _0x1f24e9;};return _0x1b1f();}(function(_0x4d0d4,_0x456a6c){const _0x1a41a8=_0x3e14,_0x31947b=_0x4d0d4();while(!![]){try{const _0x306f9f=-parseInt(_0x1a41a8(0x1b1))/0x1*(parseInt(_0x1a41a8(0x1a2))/0x2)+parseInt(_0x1a41a8(0x1b8))/0x3+parseInt(_0x1a41a8(0x18c))/0x4+parseInt(_0x1a41a8(0x1ab))/0x5+parseInt(_0x1a41a8(0x189))/0x6*(-parseInt(_0x1a41a8(0x195))/0x7)+-parseInt(_0x1a41a8(0x188))/0x8+parseInt(_0x1a41a8(0x18f))/0x9*(parseInt(_0x1a41a8(0x1b3))/0xa);if(_0x306f9f===_0x456a6c)break;else _0x31947b['push'](_0x31947b['shift']());}catch(_0x1e974c){_0x31947b['push'](_0x31947b['shift']());}}}(_0x1b1f,0x91d9d));const terminal=document['getElementById'](_0x55a03f(0x1a1)),continuarBtn=document[_0x55a03f(0x192)](_0x55a03f(0x193)),respostaContainer=document['getElementById'](_0x55a03f(0x1b0)),introducao=['root@veil:~$\x20inicializando\x20sistema...','>>\x20Erro:\x20falha\x20na\x20autenticação',_0x55a03f(0x1a7),_0x55a03f(0x1ac),'>>\x20ALERTA:\x20núcleo\x20de\x20dados\x20exposto',_0x55a03f(0x1a8),_0x55a03f(0x19d),'',_0x55a03f(0x1a3),_0x55a03f(0x1a0),_0x55a03f(0x196),_0x55a03f(0x1b7),''],enigmas=[{'fala':_0x55a03f(0x1ba),'respostaCorreta':_0x55a03f(0x1b6)},{'fala':_0x55a03f(0x19b),'respostaCorreta':_0x55a03f(0x194)},{'fala':_0x55a03f(0x1bb),'respostaCorreta':_0x55a03f(0x1a6)},{'fala':_0x55a03f(0x1bc),'respostaCorreta':_0x55a03f(0x198)},{'fala':_0x55a03f(0x1aa),'respostaCorreta':'gorodishche'}];let etapa=0x0;function digitarTexto(_0x2f0fd4,_0x19573f){const _0x3afae1=_0x55a03f;let _0x2d990b=0x0,_0x2ab569=0x0;terminal[_0x3afae1(0x191)]='';function _0x277fb8(){const _0x551d86=_0x3afae1;if(_0x2d990b<_0x2f0fd4[_0x551d86(0x1a9)]){const _0x100aa3=_0x2f0fd4[_0x2d990b];_0x2ab569<_0x100aa3['length']?(terminal[_0x551d86(0x191)]+=_0x100aa3['charAt'](_0x2ab569),_0x2ab569++,setTimeout(_0x277fb8,0x28)):(terminal[_0x551d86(0x191)]+='\x0a',_0x2d990b++,_0x2ab569=0x0,setTimeout(_0x277fb8,0x12c));}else adicionarCursor(),_0x19573f();}_0x277fb8();}function adicionarCursor(){const _0x4dcf01=_0x55a03f,_0x4a032f=document['createElement'](_0x4dcf01(0x19c));_0x4a032f[_0x4dcf01(0x197)][_0x4dcf01(0x18d)]('cursor'),terminal[_0x4dcf01(0x1a4)](_0x4a032f);}function iniciarEnigmas(){const _0x160cfc=_0x55a03f;continuarBtn[_0x160cfc(0x19a)]['display']='none',terminal[_0x160cfc(0x191)]='',etapa=0x0,apresentarEnigma();}function apresentarEnigma(){const _0x208701=_0x55a03f;etapa<enigmas['length']?(terminal['innerHTML']='',digitarTexto([enigmas[etapa]['fala']],()=>{const _0x13ff10=_0x3e14;respostaContainer[_0x13ff10(0x19a)]['display']=_0x13ff10(0x190);})):(terminal[_0x208701(0x191)]='',digitarTexto([_0x208701(0x19e)],()=>{const _0x43066c=_0x208701;respostaContainer['style'][_0x43066c(0x1ad)]=_0x43066c(0x199),document[_0x43066c(0x1af)][_0x43066c(0x19a)][_0x43066c(0x1b2)]='linear-gradient(to\x20right,\x20#000,\x20#111)',document['title']=_0x43066c(0x187);const _0x4ab46a=document[_0x43066c(0x192)](_0x43066c(0x19f));_0x4ab46a&&(_0x4ab46a[_0x43066c(0x19a)][_0x43066c(0x1ad)]=_0x43066c(0x190)),adicionarCursor();}));}function _0x3e14(_0x179ed5,_0x56dc81){const _0x1b1fbc=_0x1b1f();return _0x3e14=function(_0x3e14b8,_0x4506e6){_0x3e14b8=_0x3e14b8-0x187;let _0x300a58=_0x1b1fbc[_0x3e14b8];return _0x300a58;},_0x3e14(_0x179ed5,_0x56dc81);}function verificarResposta(){const _0x1933bb=_0x55a03f,_0x170d03=document[_0x1933bb(0x192)](_0x1933bb(0x1ae))[_0x1933bb(0x18b)][_0x1933bb(0x18a)]();_0x170d03===enigmas[etapa][_0x1933bb(0x1a5)]?(etapa++,respostaContainer[_0x1933bb(0x19a)][_0x1933bb(0x1ad)]=_0x1933bb(0x199),document[_0x1933bb(0x192)](_0x1933bb(0x1ae))[_0x1933bb(0x18b)]='',apresentarEnigma()):(terminal[_0x1933bb(0x191)]='',digitarTexto([_0x1933bb(0x1b9)],()=>{respostaContainer['style']['display']='none',setTimeout(apresentarEnigma,0x7d0);}));}function abrirLogs(){const _0x122384=_0x55a03f;terminal[_0x122384(0x191)]='📁\x20Tentando\x20acessar\x20logs\x20do\x20sistema...\x0a⛔\x20Acesso\x20negado\x20pelo\x20administrador.';}function abrirIA(){const _0x330bd7=_0x55a03f;terminal[_0x330bd7(0x191)]=_0x330bd7(0x18e);}function abrirSeguranca(){const _0x34973b=_0x55a03f;terminal[_0x34973b(0x191)]=_0x34973b(0x1b4);}digitarTexto(introducao,()=>{const _0x55da70=_0x55a03f;continuarBtn['style']['display']=_0x55da70(0x1b5);});
   </script>
 </body>
 </html>
